@@ -20,7 +20,7 @@ _C)_ Run wmake.
 _A)_ Paste applications/utilities/BC/regionCoupleSolidFluid inside OpenFOAM user directory (Applications/Utilities/BC).  
 _B)_ Open a terminal inside regionCoupleSolidFluid.  
 _C)_ Run wmake.  
-**3.**   	
+**3.**  
 _A)_ Paste applications/utilities/postProcessing/potentialWallFlux inside OpenFOAM user directory (Applications/Utilities/postProcessing).  
 _B)_ Open a terminal inside potentialWallFlux.  
 _C)_ Run wmake.  
