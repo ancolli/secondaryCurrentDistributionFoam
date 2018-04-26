@@ -12,15 +12,18 @@ In tutorial (B) you will find an example of a 2D cell composed of 1 cathode, 1 a
 In more information (C) you will find a brief description of the proposed tool
 
 # #  A) Applications
-1-	A) Paste applications/utilities/Solvers/multiRegionPotentialFoam inside OpenFOAM user directory (Applications/Utilities/Solvers).
-B) Open a terminal inside multiRegionPotentialFoam.
-C) Run wmake.
-2-	A) Paste applications/utilities/BC/regionCoupleSolidFluid inside OpenFOAM user directory (Applications/Utilities/BC).
-B) Open a terminal inside regionCoupleSolidFluid.
-C) Run wmake 
-3-	A) Paste applications/utilities/postProcessing/potentialWallFlux inside OpenFOAM user directory (Applications/Utilities/postProcessing).
-B) Open a terminal inside potentialWallFlux.
-C) Run wmake 
+1)  	
+A- Paste applications/utilities/Solvers/multiRegionPotentialFoam inside OpenFOAM user directory (Applications/Utilities/Solvers).  
+B- Open a terminal inside multiRegionPotentialFoam.  
+C- Run wmake.  
+2)	
+A- Paste applications/utilities/BC/regionCoupleSolidFluid inside OpenFOAM user directory (Applications/Utilities/BC).  
+B- Open a terminal inside regionCoupleSolidFluid.  
+C- Run wmake.   
+3)	
+A- Paste applications/utilities/postProcessing/potentialWallFlux inside OpenFOAM user directory (Applications/Utilities/postProcessing).
+B- Open a terminal inside potentialWallFlux.
+C- Run wmake.   
 
 
 # #  B) Tutorial
