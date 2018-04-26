@@ -1,0 +1,90 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     multiRegionPotentialFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         2000;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   100;
+
+purgeWrite      2;
+
+writeFormat     ascii;
+
+writePrecision  7;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+
+libs (
+	//"libregionCouplePotentialGradient.so"
+	"libregionCoupleSolidFluid.so"
+
+	//"libgroovyBC.so"
+	"libOpenFOAM.so"
+     );
+
+/*functions
+{
+ 	
+            type writeRegisteredObjet;
+	    functionObjectLibs ("libIOFunctionObjects.so");
+	    objectNames ("km" "kf");
+	    outputControl	outputTime;
+        
+
+}
+
+fimField
+    {
+            type expressionField;
+            dimension [0 0 0 1 0 0 0];
+            autowrite true;//false;
+            outputControl timeStep;
+            outputInterval 1;
+            expression "fim";
+            fieldName "fimetalico";
+    }
+
+fifField
+    {
+            type expressionField;
+            dimension [0 0 0 1 0 0 0];
+            autowrite true;//false;
+            outputControl timeStep;
+            outputInterval 1;
+            expression "fif";
+            fieldName "fifluido";
+    }
+
+// ************************************************************************* //
