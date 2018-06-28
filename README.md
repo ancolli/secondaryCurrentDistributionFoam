@@ -1,6 +1,6 @@
 # v1.0.0
 # secondaryCurrentDistributionFoam
-It is described how to simulate secondary current distribution in electrochemical reactors with a multiregion approach (solve solid and fluid phase) with the help of OpenFOAM, the developed solver multiregionPotentialFoam and the BC regionCoupleSolidFluid. It shows how to pre-process, run and post-process a basic case involving in a 2D domain. 
+It is described how to simulate primary (when kinetic parameters of very fast electrochemical reactions are used) and secondary current distribution in electrochemical reactors with a multiregion approach (solve solid and fluid phase) with the help of OpenFOAM, the developed solver multiregionPotentialFoam and the BC regionCoupleSolidFluid. It shows how to pre-process, run and post-process a basic case involving in a 2D domain. 
 The proposed strategy allows to have as an input i-th electrochemical reactions per electrode, including bipolar electrodes in which at least two reactions take place (reduction and oxidation).
 
 # Disclaimer
@@ -29,7 +29,7 @@ _C)_ Run wmake.
 # #  B) Tutorial
 **1-** Paste tutorial inside OpenFOAM user directory (Run/Tutorials).  
 **2-** Enter to tutorial and open a Terminal.  
-**3-** Modify properties inside system/anode-cathode-bipolar-electrolyte/changeDictionaryDict.  
+**3-** Modify properties (conductivity and kinetic parameters) inside system/anode-cathode-bipolar-electrolyte/changeDictionaryDict.  
 **4-** Run ./Allrun.  
 
 
