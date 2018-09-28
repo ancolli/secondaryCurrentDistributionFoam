@@ -28,7 +28,7 @@ Description
     Mixed boundary condition for potential in the fluid, to be used for secondary 
     distribution problems. 
 
-    See paper description
+    See paper description: https://doi.org/10.1016/j.electacta.2018.09.121
 
 
 Usage
