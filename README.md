@@ -1,4 +1,8 @@
 # v1.0.0
+
+Electrochimica Acta 290 (2018) 676-685
+https://doi.org/10.1016/j.electacta.2018.09.121
+
 # secondaryCurrentDistributionFoam
 It is described how to simulate primary (when kinetic parameters of very fast electrochemical reactions are used) and secondary current distribution in electrochemical reactors with a multiregion approach (solve solid and fluid phase) with the help of OpenFOAM, the developed solver multiregionPotentialFoam and the BC regionCoupleSolidFluid. It shows how to pre-process, run and post-process a basic case involving in a 2D domain. 
 The proposed strategy allows to have as an input i-th electrochemical reactions per electrode, including bipolar electrodes in which at least two reactions take place (reduction and oxidation).
