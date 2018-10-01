@@ -1,6 +1,6 @@
 # v1.0.0
 
-Cite: Electrochimica Acta 290 (2018) 676-685
+Cite as: Electrochimica Acta 290 (2018) 676-685
 https://doi.org/10.1016/j.electacta.2018.09.121
 
 # secondaryCurrentDistributionFoam
