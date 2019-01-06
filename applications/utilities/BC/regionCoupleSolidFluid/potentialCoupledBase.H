@@ -22,19 +22,19 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::temperatureCoupledBase
+    Foam::potentialCoupledBase
 
 Description
     Common functions used in potential coupled boundaries.
 
 
 SourceFiles
-    tCoupledBase.C
+    potentialCoupledBase.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef tCoupledBase_H
-#define tCoupledBase_H
+#ifndef potentialCoupledBase_H
+#define potentialCoupledBase_H
 
 #include "scalarField.H"
 #include "NamedEnum.H"
@@ -46,10 +46,10 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                   Class temperatureCoupledBase Declaration
+                   Class potentialCoupledBase Declaration
 \*---------------------------------------------------------------------------*/
 
-class tCoupledBase
+class potentialCoupledBase
 {
 public:
 
@@ -86,7 +86,7 @@ public:
     // Constructors
 
         //- Construct from patch and K name
-        tCoupledBase
+        potentialCoupledBase
         (
             const fvPatch& patch,
             const word& calculationMethod,
@@ -95,17 +95,17 @@ public:
         );
 
         //- Construct from patch and dictionary
-        tCoupledBase
+        potentialCoupledBase
         (
             const fvPatch& patch,
             const dictionary& dict
         );
 
-         //- Construct from patch and tCoupledBase
-        tCoupledBase
+         //- Construct from patch and potentialCoupledBase
+        potentialCoupledBase
         (
             const fvPatch& patch,
-            const tCoupledBase& base
+            const potentialCoupledBase& base
         );
 
 
@@ -117,14 +117,14 @@ public:
             return KMethodTypeNames_[method_];
         }
 
-        //- Name of thermal conductivity field
+        //- Name of electrical conductivity field
         const word& kappaName() const
         {
             return kappaName_;
         }
 
-        //- Given patch temperature calculate corresponding K field
-        tmp<scalarField> kappa(const scalarField& Tp) const;
+        //- Given patch potential calculate corresponding K field
+        tmp<scalarField> kappa(const scalarField& fip) const;
 
         //- Write
         void write(Ostream&) const;

@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "tCoupledBase.H"
+#include "potentialCoupledBase.H"
 #include "volFields.H"
 
 // * * * * * * * * * * * * * Static Member Data  * * * * * * * * * * * * * * //
@@ -33,7 +33,7 @@ namespace Foam
     template<>
     const char* Foam::NamedEnum
     <
-        Foam::tCoupledBase::KMethodType,
+        Foam::potentialCoupledBase::KMethodType,
         1
     >::names[] =
     {
@@ -42,13 +42,13 @@ namespace Foam
 }
 
 
-const Foam::NamedEnum<Foam::tCoupledBase::KMethodType, 1> 
-    Foam::tCoupledBase::KMethodTypeNames_;
+const Foam::NamedEnum<Foam::potentialCoupledBase::KMethodType, 1> 
+    Foam::potentialCoupledBase::KMethodTypeNames_;
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::tCoupledBase::tCoupledBase
+Foam::potentialCoupledBase::potentialCoupledBase
 (
     const fvPatch& patch,
     const word& calculationType,
@@ -63,7 +63,7 @@ Foam::tCoupledBase::tCoupledBase
 {}
 
 
-Foam::tCoupledBase::tCoupledBase
+Foam::potentialCoupledBase::potentialCoupledBase
 (
     const fvPatch& patch,
     const dictionary& dict
@@ -76,10 +76,10 @@ Foam::tCoupledBase::tCoupledBase
 {}
 
 
-Foam::tCoupledBase::tCoupledBase
+Foam::potentialCoupledBase::potentialCoupledBase
 (
     const fvPatch& patch,
-    const tCoupledBase& base
+    const potentialCoupledBase& base
 )
 :
     patch_(patch),
@@ -91,9 +91,9 @@ Foam::tCoupledBase::tCoupledBase
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::scalarField> Foam::tCoupledBase::kappa
+Foam::tmp<Foam::scalarField> Foam::potentialCoupledBase::kappa
 (
-    const scalarField& Tp
+    const scalarField& fip
 ) const
 {
     const fvMesh& mesh = patch_.boundaryMesh().mesh();
@@ -142,7 +142,7 @@ Foam::tmp<Foam::scalarField> Foam::tCoupledBase::kappa
 }
 
 
-void Foam::tCoupledBase::write(Ostream& os) const
+void Foam::potentialCoupledBase::write(Ostream& os) const
 {
     os.writeKeyword("kappaMethod") << KMethodTypeNames_[method_]
         << token::END_STATEMENT << nl;

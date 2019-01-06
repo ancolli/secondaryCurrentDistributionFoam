@@ -73,7 +73,7 @@ SourceFiles
 #define regionCoupleFluidFvPatchScalarField_H
 
 #include "mixedFvPatchFields.H"
-#include "tCoupledBase.H"
+#include "potentialCoupledBase.H"
 #include "scalarField.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -88,7 +88,7 @@ namespace Foam
 class regionCoupleFluidFvPatchScalarField
 :
     public mixedFvPatchScalarField,
-    public tCoupledBase
+    public potentialCoupledBase
 {
     // Private data
 

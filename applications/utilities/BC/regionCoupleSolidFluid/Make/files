@@ -1,4 +1,4 @@
-tCoupledBase.C
+potentialCoupledBase.C
 regionCoupleFluidFvPatchScalarField.C
 regionCoupleSolidFvPatchScalarField.C
 
