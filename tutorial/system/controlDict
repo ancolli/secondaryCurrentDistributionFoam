@@ -47,44 +47,8 @@ runTimeModifiable true;
 
 
 libs (
-	//"libregionCouplePotentialGradient.so"
 	"libregionCoupleSolidFluid.so"
-
-	//"libgroovyBC.so"
 	"libOpenFOAM.so"
      );
-
-/*functions
-{
- 	
-            type writeRegisteredObjet;
-	    functionObjectLibs ("libIOFunctionObjects.so");
-	    objectNames ("km" "kf");
-	    outputControl	outputTime;
-        
-
-}
-
-fimField
-    {
-            type expressionField;
-            dimension [0 0 0 1 0 0 0];
-            autowrite true;//false;
-            outputControl timeStep;
-            outputInterval 1;
-            expression "fim";
-            fieldName "fimetalico";
-    }
-
-fifField
-    {
-            type expressionField;
-            dimension [0 0 0 1 0 0 0];
-            autowrite true;//false;
-            outputControl timeStep;
-            outputInterval 1;
-            expression "fif";
-            fieldName "fifluido";
-    }
 
 // ************************************************************************* //
