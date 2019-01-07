@@ -30,7 +30,7 @@ fi
 	"electrolyte_to_.*"// cathode, anode and bipolar
         {
             type	    regionCoupleFluid;
-	    Tnbr            fi;
+	    nbrField        fi;
 	    j0		    (-2.09 9.38e-2);
 	    b		    (-0.0621347 0.0485);
             E0		    (0.0 1.23);

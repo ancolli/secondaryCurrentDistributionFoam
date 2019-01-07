@@ -46,7 +46,7 @@ regionCoupleSolidFvPatchScalarField
 :
     mixedFvPatchScalarField(p, iF),
     potentialCoupledBase(patch(), "undefined", "undefined", "undefined-K"),
-    TnbrName_("undefined-Tnbr"),
+    neighbourFieldName_("undefined-nbrField"),
     exchangeCurrentDensity_(0),
     beta_(0),
     equilibriumPotential_(0)
@@ -68,7 +68,7 @@ regionCoupleSolidFvPatchScalarField
 :
     mixedFvPatchScalarField(ptf, p, iF, mapper),
     potentialCoupledBase(patch(), ptf),
-    TnbrName_(ptf.TnbrName_),
+    neighbourFieldName_(ptf.neighbourFieldName_),
     exchangeCurrentDensity_(ptf.exchangeCurrentDensity_),
     beta_(ptf.beta_),
     equilibriumPotential_(ptf.equilibriumPotential_)
@@ -86,7 +86,7 @@ regionCoupleSolidFvPatchScalarField
 :
     mixedFvPatchScalarField(p, iF),
     potentialCoupledBase(patch(), dict),
-    TnbrName_(dict.lookup("Tnbr")),
+    neighbourFieldName_(dict.lookup("nbrField")),
     exchangeCurrentDensity_(0),
     beta_(0),
     equilibriumPotential_(0)
@@ -137,7 +137,7 @@ regionCoupleSolidFvPatchScalarField
 :
     mixedFvPatchScalarField(wtcsf, iF),
     potentialCoupledBase(patch(), wtcsf),
-    TnbrName_(wtcsf.TnbrName_),
+    neighbourFieldName_(wtcsf.neighbourFieldName_),
     exchangeCurrentDensity_(wtcsf.exchangeCurrentDensity_),
     beta_(wtcsf.beta_),
     equilibriumPotential_(wtcsf.equilibriumPotential_)
@@ -177,7 +177,7 @@ void regionCoupleSolidFvPatchScalarField::updateCoeffs()
     (
         nbrPatch.lookupPatchField<volScalarField, scalar>
         (
-            TnbrName_
+            neighbourFieldName_
         )
     );
 
@@ -241,7 +241,7 @@ void regionCoupleSolidFvPatchScalarField::write
 ) const
 {
     mixedFvPatchScalarField::write(os);
-    os.writeKeyword("Tnbr")<< TnbrName_
+    os.writeKeyword("nbrField")<< neighbourFieldName_
         << token::END_STATEMENT << nl;
     exchangeCurrentDensity_.writeEntry("j0", os);
     beta_.writeEntry("b", os);

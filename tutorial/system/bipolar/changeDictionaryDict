@@ -28,7 +28,7 @@ fi
 	bipolar_to_electrolyte
         {    
             type	    regionCoupleSolid;
-	    Tnbr            fi;
+	    nbrField        fi;
 	    value           $internalField;
  	    j0		    (9.38e-2 -2.09);
 	    b		    (0.0485 -0.0621347);

@@ -34,7 +34,7 @@ Description
 Usage
     \table
         Property     | Description             | Required    | Default value
-        Tnbr         | name of the field    | no | fi
+        nbrField         | name of the field    | no | fi
         j0           | list of exchangeCurrentDensity	| yes | 
 	b	     | list of tafel slope	| yes |     
         E0	     | list of equilibriumPotential	| yes |
@@ -48,7 +48,7 @@ Usage
     {
 
 	    type	    regionCoupleFluid;
-	    Tnbr            fi;
+	    nbrField            fi;
 	    j0		    (-2.09 9.38e-2);
 	    b		    (-0.0621347 0.0485);
             E0		    (0.0 1.23);
@@ -93,7 +93,7 @@ class regionCoupleFluidFvPatchScalarField
     // Private data
 
         //- Name of field on the neighbour region
-        const word TnbrName_;
+        const word neighbourFieldName_;
         
 	//- Kinetic parameters
         scalarList exchangeCurrentDensity_;

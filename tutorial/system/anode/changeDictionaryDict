@@ -37,7 +37,7 @@ fi
 	anode_to_electrolyte
         {    
             type	    regionCoupleSolid;
-	    Tnbr            fi;
+	    nbrField        fi;
 	    value           $internalField;
  	    j0		    (9.38e-2);
 	    b		    (0.0485);
