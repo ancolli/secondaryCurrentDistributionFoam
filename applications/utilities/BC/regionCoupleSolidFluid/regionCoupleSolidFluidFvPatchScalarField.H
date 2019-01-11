@@ -90,7 +90,7 @@ namespace Foam
 class regionCoupleSolidFluidFvPatchScalarField
 :
     public mixedFvPatchScalarField,
-    public temperatureCoupledBase//potentialCoupledBase
+    public temperatureCoupledBase
 {
     // Private data
 
@@ -126,7 +126,7 @@ public:
         );
 
         //- Construct by mapping given
-        //  regionCoupled onto a
+        //  regionCoupleSolidFluid onto a
         //  new patch
         regionCoupleSolidFluidFvPatchScalarField
         (
