@@ -23,8 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "regionCoupleSolidFvPatchScalarField.H"
-#include "regionCoupleFluidFvPatchScalarField.H"
+#include "regionCoupleSolidFluidFvPatchScalarField.H"
 #include "addToRunTimeSelectionTable.H"
 #include "fvPatchFieldMapper.H"
 #include "volFields.H"
@@ -37,16 +36,17 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-regionCoupleSolidFvPatchScalarField::
-regionCoupleSolidFvPatchScalarField
+regionCoupleSolidFluidFvPatchScalarField::
+regionCoupleSolidFluidFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF
 )
 :
     mixedFvPatchScalarField(p, iF),
-    potentialCoupledBase(patch(), "undefined", "undefined", "undefined-K"),
+    temperatureCoupledBase(patch(), "undefined", "undefined", "undefined-K"),
     neighbourFieldName_("undefined-nbrField"),
+    sideName_("undefined-sideName"),
     exchangeCurrentDensity_(0),
     beta_(0),
     equilibriumPotential_(0)
@@ -57,18 +57,19 @@ regionCoupleSolidFvPatchScalarField
 }
 
 
-regionCoupleSolidFvPatchScalarField::
-regionCoupleSolidFvPatchScalarField
+regionCoupleSolidFluidFvPatchScalarField::
+regionCoupleSolidFluidFvPatchScalarField
 (
-    const regionCoupleSolidFvPatchScalarField& ptf,
+    const regionCoupleSolidFluidFvPatchScalarField& ptf,
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
     const fvPatchFieldMapper& mapper
 )
 :
     mixedFvPatchScalarField(ptf, p, iF, mapper),
-    potentialCoupledBase(patch(), ptf),
+    temperatureCoupledBase(patch(), ptf),
     neighbourFieldName_(ptf.neighbourFieldName_),
+    sideName_(ptf.sideName_),
     exchangeCurrentDensity_(ptf.exchangeCurrentDensity_),
     beta_(ptf.beta_),
     equilibriumPotential_(ptf.equilibriumPotential_)
@@ -76,8 +77,8 @@ regionCoupleSolidFvPatchScalarField
 {}
 
 
-regionCoupleSolidFvPatchScalarField::
-regionCoupleSolidFvPatchScalarField
+regionCoupleSolidFluidFvPatchScalarField::
+regionCoupleSolidFluidFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -85,8 +86,9 @@ regionCoupleSolidFvPatchScalarField
 )
 :
     mixedFvPatchScalarField(p, iF),
-    potentialCoupledBase(patch(), dict),
+    temperatureCoupledBase(patch(), dict),
     neighbourFieldName_(dict.lookup("nbrField")),
+    sideName_(dict.lookup("side")),
     exchangeCurrentDensity_(0),
     beta_(0),
     equilibriumPotential_(0)
@@ -128,16 +130,17 @@ regionCoupleSolidFvPatchScalarField
 }
 
 
-regionCoupleSolidFvPatchScalarField::
-regionCoupleSolidFvPatchScalarField
+regionCoupleSolidFluidFvPatchScalarField::
+regionCoupleSolidFluidFvPatchScalarField
 (
-    const regionCoupleSolidFvPatchScalarField& wtcsf,
+    const regionCoupleSolidFluidFvPatchScalarField& wtcsf,
     const DimensionedField<scalar, volMesh>& iF
 )
 :
     mixedFvPatchScalarField(wtcsf, iF),
-    potentialCoupledBase(patch(), wtcsf),
+    temperatureCoupledBase(patch(), wtcsf),
     neighbourFieldName_(wtcsf.neighbourFieldName_),
+    sideName_(wtcsf.sideName_),
     exchangeCurrentDensity_(wtcsf.exchangeCurrentDensity_),
     beta_(wtcsf.beta_),
     equilibriumPotential_(wtcsf.equilibriumPotential_)
@@ -146,7 +149,7 @@ regionCoupleSolidFvPatchScalarField
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void regionCoupleSolidFvPatchScalarField::updateCoeffs()
+void regionCoupleSolidFluidFvPatchScalarField::updateCoeffs()
 {
     if (updated())
     {
@@ -169,10 +172,10 @@ void regionCoupleSolidFvPatchScalarField::updateCoeffs()
     // Calculate the temperature by harmonic averaging
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    const regionCoupleFluidFvPatchScalarField& nbrField =
+    const regionCoupleSolidFluidFvPatchScalarField& nbrField =
     refCast
     <
-        const regionCoupleFluidFvPatchScalarField
+        const regionCoupleSolidFluidFvPatchScalarField
     >
     (
         nbrPatch.lookupPatchField<volScalarField, scalar>
@@ -194,6 +197,9 @@ void regionCoupleSolidFvPatchScalarField::updateCoeffs()
     tmp<scalarField> Ai = 0*nbrPotencial();
     tmp<scalarField> Bi = 0*nbrPotencial();
 
+
+if (sideName_ == "solid")
+{
 // For more than one reaction at the same electrode
     if (exchangeCurrentDensity_.size() > 0)
     {
@@ -207,8 +213,38 @@ void regionCoupleSolidFvPatchScalarField::updateCoeffs()
 // Explanation in the paper
 
     this->refValue() = potential()-Bi()/Ai();
+
+} 
+else if(sideName_ == "fluid")
+{
+	// For more than one reaction at the same electrode
+    if (exchangeCurrentDensity_.size() > 0)
+    {
+    	forAll(exchangeCurrentDensity_, iReaction)
+        {
+        	Ai = Ai() + exchangeCurrentDensity_[iReaction]*exp((nbrPotencial()-potential()-equilibriumPotential_[iReaction])/beta_[iReaction])/beta_[iReaction]/myKDelta();
+		Bi = Bi() + exchangeCurrentDensity_[iReaction]*exp((nbrPotencial()-potential()-equilibriumPotential_[iReaction])/beta_[iReaction])/myKDelta();
+        }
+    }
+
+// Explanation in the paper
+
+    this->refValue() = potential()+Bi()/Ai();
+}
+
+else 
+{
+	FatalErrorIn
+        (
+            ": In changeDictionaryDict, side should be either solid or fluid"
+            "\n"
+        )   
+            << exit(FatalError);
+}
+
     this->refGrad() = 0;
     this->valueFraction() = Ai()/(1+Ai());
+
 
     mixedFvPatchScalarField::updateCoeffs();
 
@@ -235,7 +271,7 @@ void regionCoupleSolidFvPatchScalarField::updateCoeffs()
 }
 
 
-void regionCoupleSolidFvPatchScalarField::write
+void regionCoupleSolidFluidFvPatchScalarField::write
 (
     Ostream& os
 ) const
@@ -243,10 +279,13 @@ void regionCoupleSolidFvPatchScalarField::write
     mixedFvPatchScalarField::write(os);
     os.writeKeyword("nbrField")<< neighbourFieldName_
         << token::END_STATEMENT << nl;
+    os.writeKeyword("side")<< sideName_
+        << token::END_STATEMENT << nl;
     exchangeCurrentDensity_.writeEntry("j0", os);
     beta_.writeEntry("b", os);
     equilibriumPotential_.writeEntry("E0", os);
-    potentialCoupledBase::write(os);
+    temperatureCoupledBase::write(os);
+
 }
 
 
@@ -255,7 +294,7 @@ void regionCoupleSolidFvPatchScalarField::write
 makePatchTypeField
 (
     fvPatchScalarField,
-    regionCoupleSolidFvPatchScalarField
+    regionCoupleSolidFluidFvPatchScalarField
 );
 
 

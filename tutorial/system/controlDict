@@ -48,7 +48,6 @@ runTimeModifiable true;
 
 libs (
 	"libregionCoupleSolidFluid.so"
-	"libOpenFOAM.so"
      );
 
 // ************************************************************************* //
