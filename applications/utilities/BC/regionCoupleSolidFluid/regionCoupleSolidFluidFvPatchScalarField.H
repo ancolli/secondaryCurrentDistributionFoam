@@ -76,7 +76,6 @@ SourceFiles
 
 #include "mixedFvPatchFields.H"
 #include "temperatureCoupledBase.H"
-//#include "potentialCoupledBase.H"
 #include "scalarField.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
