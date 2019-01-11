@@ -20,7 +20,7 @@
                     "kf",
                     runTime.timeName(),
                     fluidRegions[i],
-                    IOobject::NO_READ,
+                    IOobject::MUST_READ,
                     IOobject::AUTO_WRITE
                 ),
                 fluidRegions[i]
@@ -38,8 +38,8 @@
                     "fi",
                     runTime.timeName(),
                     fluidRegions[i],
-                    IOobject::NO_READ,
-                    IOobject::NO_WRITE
+                    IOobject::MUST_READ,
+                    IOobject::AUTO_WRITE
                 ),
                 fluidRegions[i]
             )

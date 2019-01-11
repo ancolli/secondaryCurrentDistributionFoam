@@ -22,19 +22,18 @@ License
     along with foam-extend.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    chtMultiRegionSimpleFoam
+    multiRegionPotentialFoam
 
 Description
-    Steady-state version of chtMultiRegionFoam
+    Electrochimica Acta 290 (2018) 676-685  https://doi.org/10.1016/j.electacta.2018.09.121
+    See also: https://github.com/ancolli/secondaryCurrentDistributionFoam
 
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
-//#include "basicPsiThermo.H"
-//#include "turbulenceModel.H"
 #include "fixedGradientFvPatchFields.H"
 #include "regionProperties.H"
-//#include "compressibleCourantNo.H"
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -50,8 +49,6 @@ int main(int argc, char *argv[])
 
     #include "createFluidFields.H"
     #include "createSolidFields.H"
-
-    //#include "initContinuityErrs.H"
 
 
     while (runTime.run())

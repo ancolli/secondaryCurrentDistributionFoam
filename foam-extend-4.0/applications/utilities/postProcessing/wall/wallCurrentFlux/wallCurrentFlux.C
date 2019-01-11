@@ -27,6 +27,9 @@ Application
 Description
     Calculates and writes current distribution of fi and total current at the wall.
 
+    Details: Electrochimica Acta 290 (2018) 676-685  https://doi.org/10.1016/j.electacta.2018.09.121
+    See also: https://github.com/ancolli/secondaryCurrentDistributionFoam
+
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"

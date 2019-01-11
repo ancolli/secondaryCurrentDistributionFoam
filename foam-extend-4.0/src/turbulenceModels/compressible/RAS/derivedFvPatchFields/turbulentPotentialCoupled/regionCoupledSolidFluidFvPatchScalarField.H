@@ -25,10 +25,11 @@ Class
     Foam::regionCoupledSolidFluidFvPatchScalarField
 
 Description
-    Mixed boundary condition for potential in a solid, to be used for secondary 
+    Mixed boundary condition for potentials in a solids-fluids, to be used for secondary 
     distribution problems.
 
-    See paper description: https://doi.org/10.1016/j.electacta.2018.09.121
+    Details: Electrochimica Acta 290 (2018) 676-685  https://doi.org/10.1016/j.electacta.2018.09.121
+    See also: https://github.com/ancolli/secondaryCurrentDistributionFoam
 
 
 Usage
@@ -60,7 +61,6 @@ Usage
         
     }
     \endverbatim
-
 
     Needs to be on underlying mapped(Wall)FvPatch.
 

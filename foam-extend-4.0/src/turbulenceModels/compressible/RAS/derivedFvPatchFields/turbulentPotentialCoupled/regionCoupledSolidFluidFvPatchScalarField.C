@@ -21,6 +21,9 @@ License
     You should have received a copy of the GNU General Public License
     along with foam-extend.  If not, see <http://www.gnu.org/licenses/>.
 
+    Details: Electrochimica Acta 290 (2018) 676-685  https://doi.org/10.1016/j.electacta.2018.09.121
+    See also: https://github.com/ancolli/secondaryCurrentDistributionFoam
+
 \*---------------------------------------------------------------------------*/
 
 #include "regionCoupledSolidFluidFvPatchScalarField.H"
@@ -170,17 +173,12 @@ regionCoupledSolidFluidFvPatchScalarField::Kappa() const
 
     if (KappaName_ == "none")
     {
-        /*const compressible::RASModel& model =
-            db().lookupObject<compressible::RASModel>("RASProperties");
-
-        tmp<volScalarField> talpha = model.alphaEff();
-
-        const basicThermo& thermo =
-            db().lookupObject<basicThermo>("thermophysicalProperties");
-
-        return
-            talpha().boundaryField()[patch().index()]
-           *thermo.Cp()().boundaryField()[patch().index()];*/
+       FatalErrorIn
+        (
+            ": KappaName can not be none"
+            "\n"
+        )   
+            << exit(FatalError);
 
 	return scalarField(0);
     }
@@ -267,17 +265,6 @@ void regionCoupledSolidFluidFvPatchScalarField::updateCoeffs()
 
     tmp<scalarField> nbrPotencial(new scalarField(nbrField.size(), 0.0));
     nbrPotencial() = nbrField;
-    // Swap to obtain full local values of neighbour Kappa*delta
-    /*scalarField nbrKappaDelta = nbrField.Kappa()*nbrPatch.deltaCoeffs();
-    mapDistribute::distribute
-    (
-        Pstream::defaultComms(),
-        distMap.schedule(),
-        distMap.constructSize(),
-        distMap.subMap(),           // what to send
-        distMap.constructMap(),     // what to receive
-        nbrKappaDelta
-    );*/
 
     tmp<scalarField> myKDelta = Kappa()*patch().deltaCoeffs();
     tmp<scalarField> potential = patchInternalField() + snGrad()/patch().deltaCoeffs();
