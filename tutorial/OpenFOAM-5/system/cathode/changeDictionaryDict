@@ -34,7 +34,7 @@ fi
         
 	cathode_to_electrolyte
         {
-  	    type	    regionCoupleSolidFluid;
+  	    type	    regionCoupledSolidFluid;
 	    side	    solid;
 	    nbrField        fi;
 	    value           $internalField;

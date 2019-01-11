@@ -22,7 +22,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::regionCoupleSolidFluidFvPatchScalarField
+    Foam::regionCoupledSolidFluidFvPatchScalarField
 
 Description
     Mixed boundary condition for potential in a solid, to be used for secondary 
@@ -67,12 +67,12 @@ See also
     Foam::compressible::turbulentTemperatureCoupledBaffleMixed
 
 SourceFiles
-   regionCoupleSolidFluidFvPatchScalarField.C
+   regionCoupledSolidFluidFvPatchScalarField.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef regionCoupleSolidFluidFvPatchScalarField_H
-#define regionCoupleSolidFluidFvPatchScalarField_H
+#ifndef regionCoupledSolidFluidFvPatchScalarField_H
+#define regionCoupledSolidFluidFvPatchScalarField_H
 
 #include "mixedFvPatchFields.H"
 #include "temperatureCoupledBase.H"
@@ -84,13 +84,13 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-   Class regionCoupleSolidFluidFvPatchScalarField Declaration
+   Class regionCoupledSolidFluidFvPatchScalarField Declaration
 \*---------------------------------------------------------------------------*/
 
-class regionCoupleSolidFluidFvPatchScalarField
+class regionCoupledSolidFluidFvPatchScalarField
 :
     public mixedFvPatchScalarField,
-    public temperatureCoupledBase
+    public temperatureCoupledBase//potentialCoupledBase
 {
     // Private data
 
@@ -106,19 +106,19 @@ class regionCoupleSolidFluidFvPatchScalarField
 public:
 
     //- Runtime type information
-    TypeName("regionCoupleSolidFluid");
+    TypeName("regionCoupledSolidFluid");
 
     // Constructors
 
         //- Construct from patch and internal field
-        regionCoupleSolidFluidFvPatchScalarField
+        regionCoupledSolidFluidFvPatchScalarField
         (
             const fvPatch&,
             const DimensionedField<scalar, volMesh>&
         );
 
         //- Construct from patch, internal field and dictionary
-        regionCoupleSolidFluidFvPatchScalarField
+        regionCoupledSolidFluidFvPatchScalarField
         (
             const fvPatch&,
             const DimensionedField<scalar, volMesh>&,
@@ -126,11 +126,11 @@ public:
         );
 
         //- Construct by mapping given
-        //  regionCoupleSolidFluid onto a
+        //  regionCoupled onto a
         //  new patch
-        regionCoupleSolidFluidFvPatchScalarField
+        regionCoupledSolidFluidFvPatchScalarField
         (
-            const regionCoupleSolidFluidFvPatchScalarField&,
+            const regionCoupledSolidFluidFvPatchScalarField&,
             const fvPatch&,
             const DimensionedField<scalar, volMesh>&,
             const fvPatchFieldMapper&
@@ -141,7 +141,7 @@ public:
         {
             return tmp<fvPatchScalarField>
             (
-                new regionCoupleSolidFluidFvPatchScalarField
+                new regionCoupledSolidFluidFvPatchScalarField
                 (
                     *this
                 )
@@ -149,9 +149,9 @@ public:
         }
 
         //- Construct as copy setting internal field reference
-        regionCoupleSolidFluidFvPatchScalarField
+        regionCoupledSolidFluidFvPatchScalarField
         (
-            const regionCoupleSolidFluidFvPatchScalarField&,
+            const regionCoupledSolidFluidFvPatchScalarField&,
             const DimensionedField<scalar, volMesh>&
         );
 
@@ -163,7 +163,7 @@ public:
         {
             return tmp<fvPatchScalarField>
             (
-                new regionCoupleSolidFluidFvPatchScalarField
+                new regionCoupledSolidFluidFvPatchScalarField
                 (
                     *this,
                     iF

@@ -1,3 +1,0 @@
-regionCoupleSolidFluidFvPatchScalarField.C
-
-LIB = $(FOAM_USER_LIBBIN)/libregionCoupleSolidFluid

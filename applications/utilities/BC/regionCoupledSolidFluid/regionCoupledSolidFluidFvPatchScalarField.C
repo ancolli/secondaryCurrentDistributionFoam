@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "regionCoupleSolidFluidFvPatchScalarField.H"
+#include "regionCoupledSolidFluidFvPatchScalarField.H"
 #include "addToRunTimeSelectionTable.H"
 #include "fvPatchFieldMapper.H"
 #include "volFields.H"
@@ -36,8 +36,8 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-regionCoupleSolidFluidFvPatchScalarField::
-regionCoupleSolidFluidFvPatchScalarField
+regionCoupledSolidFluidFvPatchScalarField::
+regionCoupledSolidFluidFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF
@@ -57,10 +57,10 @@ regionCoupleSolidFluidFvPatchScalarField
 }
 
 
-regionCoupleSolidFluidFvPatchScalarField::
-regionCoupleSolidFluidFvPatchScalarField
+regionCoupledSolidFluidFvPatchScalarField::
+regionCoupledSolidFluidFvPatchScalarField
 (
-    const regionCoupleSolidFluidFvPatchScalarField& ptf,
+    const regionCoupledSolidFluidFvPatchScalarField& ptf,
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
     const fvPatchFieldMapper& mapper
@@ -77,8 +77,8 @@ regionCoupleSolidFluidFvPatchScalarField
 {}
 
 
-regionCoupleSolidFluidFvPatchScalarField::
-regionCoupleSolidFluidFvPatchScalarField
+regionCoupledSolidFluidFvPatchScalarField::
+regionCoupledSolidFluidFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -130,10 +130,10 @@ regionCoupleSolidFluidFvPatchScalarField
 }
 
 
-regionCoupleSolidFluidFvPatchScalarField::
-regionCoupleSolidFluidFvPatchScalarField
+regionCoupledSolidFluidFvPatchScalarField::
+regionCoupledSolidFluidFvPatchScalarField
 (
-    const regionCoupleSolidFluidFvPatchScalarField& wtcsf,
+    const regionCoupledSolidFluidFvPatchScalarField& wtcsf,
     const DimensionedField<scalar, volMesh>& iF
 )
 :
@@ -149,7 +149,7 @@ regionCoupleSolidFluidFvPatchScalarField
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void regionCoupleSolidFluidFvPatchScalarField::updateCoeffs()
+void regionCoupledSolidFluidFvPatchScalarField::updateCoeffs()
 {
     if (updated())
     {
@@ -172,10 +172,10 @@ void regionCoupleSolidFluidFvPatchScalarField::updateCoeffs()
     // Calculate the temperature by harmonic averaging
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    const regionCoupleSolidFluidFvPatchScalarField& nbrField =
+    const regionCoupledSolidFluidFvPatchScalarField& nbrField =
     refCast
     <
-        const regionCoupleSolidFluidFvPatchScalarField
+        const regionCoupledSolidFluidFvPatchScalarField
     >
     (
         nbrPatch.lookupPatchField<volScalarField, scalar>
@@ -271,7 +271,7 @@ else
 }
 
 
-void regionCoupleSolidFluidFvPatchScalarField::write
+void regionCoupledSolidFluidFvPatchScalarField::write
 (
     Ostream& os
 ) const
@@ -294,7 +294,7 @@ void regionCoupleSolidFluidFvPatchScalarField::write
 makePatchTypeField
 (
     fvPatchScalarField,
-    regionCoupleSolidFluidFvPatchScalarField
+    regionCoupledSolidFluidFvPatchScalarField
 );
 
 

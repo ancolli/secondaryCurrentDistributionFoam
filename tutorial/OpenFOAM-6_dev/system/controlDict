@@ -47,7 +47,7 @@ runTimeModifiable true;
 
 
 libs (
-	"libregionCoupleSolidFluid.so"
+	"libregionCoupledSolidFluid.so"
      );
 
 // ************************************************************************* //

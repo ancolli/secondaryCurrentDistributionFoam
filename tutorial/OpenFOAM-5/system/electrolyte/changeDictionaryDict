@@ -29,7 +29,7 @@ fi
 
 	"electrolyte_to_.*"// cathode, anode and bipolar
         {
-            type	    regionCoupleSolidFluid;
+            type	    regionCoupledSolidFluid;
             side	    fluid;
 	    nbrField        fi;
             value           $internalField;
