@@ -1,0 +1,57 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0/anode";
+    object      fi;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [ 1 2 -3 0 0 -1 0 ];
+
+internalField   uniform 10;
+
+boundaryField
+{
+        ".*"
+    	{
+            type            zeroGradient;
+    	}
+
+	top
+    	{
+	    type          fixedValue;
+            value	  uniform 10; 
+	    //type        fixedGradient;
+            //gradient 	uniform xx;// where xx is A/m2 of the current feeder
+	}
+
+	anode_to_electrolyte
+        {    
+            type	    regionCoupleSolidFluid;
+            side	    solid;
+	    nbrField        fi;
+	    value           $internalField;
+ 	    j0		    (9.38e-2);
+	    b		    (0.0485);
+            E0		    (1.23);
+            kappaMethod     lookup;
+            kappa           ks;    
+        }
+
+        frontAndBack
+    	{
+            type            empty;
+    	}
+}
+
+
+// ************************************************************************* //
