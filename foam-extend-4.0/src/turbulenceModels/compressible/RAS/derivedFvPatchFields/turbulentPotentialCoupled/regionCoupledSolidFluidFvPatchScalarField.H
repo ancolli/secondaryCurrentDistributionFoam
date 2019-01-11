@@ -1,25 +1,25 @@
 /*---------------------------------------------------------------------------*\
   =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2018 OpenFOAM Foundation
-     \\/     M anipulation  |
+  \\      /  F ield         | foam-extend: Open Source CFD
+   \\    /   O peration     | Version:     4.0
+    \\  /    A nd           | Web:         http://www.foam-extend.org
+     \\/     M anipulation  | For copyright notice see file Copyright
 -------------------------------------------------------------------------------
 License
-    This file is NOT part of OpenFOAM.
+    This file is part of foam-extend.
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
-    under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    foam-extend is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or (at your
+    option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-    for more details.
+    foam-extend is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with foam-extend.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
     Foam::regionCoupledSolidFluidFvPatchScalarField
@@ -61,6 +61,7 @@ Usage
     }
     \endverbatim
 
+
     Needs to be on underlying mapped(Wall)FvPatch.
 
 See also
@@ -75,8 +76,6 @@ SourceFiles
 #define regionCoupledSolidFluidFvPatchScalarField_H
 
 #include "mixedFvPatchFields.H"
-#include "temperatureCoupledBase.H"
-#include "scalarField.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -89,24 +88,30 @@ namespace Foam
 
 class regionCoupledSolidFluidFvPatchScalarField
 :
-    public mixedFvPatchScalarField,
-    public temperatureCoupledBase//potentialCoupledBase
+    public mixedFvPatchScalarField
 {
     // Private data
 
         //- Name of field on the neighbour region
         const word neighbourFieldName_;
+
+        //- Name of electrical conductivity field
+        const word KappaName_;
+
         //- Name of the region side
         const word sideName_; 
+
         //- Kinetic parameters
         scalarList exchangeCurrentDensity_;
         scalarList beta_;
         scalarList equilibriumPotential_;
 
+
 public:
 
     //- Runtime type information
     TypeName("regionCoupledSolidFluid");
+
 
     // Constructors
 
@@ -126,7 +131,7 @@ public:
         );
 
         //- Construct by mapping given
-        //  regionCoupled onto a
+        //  regionCoupledSolidFluidFvPatchScalarField onto a
         //  new patch
         regionCoupledSolidFluidFvPatchScalarField
         (
@@ -171,7 +176,11 @@ public:
             );
         }
 
+
     // Member functions
+
+        //- Get corresponding Kappa field
+        tmp<scalarField> Kappa() const;
 
         //- Update the coefficients associated with the patch field
         virtual void updateCoeffs();
@@ -180,8 +189,8 @@ public:
         virtual void write(Ostream&) const;
 };
 
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 } // End namespace Foam
 

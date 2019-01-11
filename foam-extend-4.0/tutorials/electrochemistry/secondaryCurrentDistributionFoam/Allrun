@@ -1,0 +1,49 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm -rf constant/polyMesh/sets
+
+runApplication blockMesh
+runApplication setSet -batch makeCellSets.setSet
+
+rm -f constant/polyMesh/sets/*_old
+
+runApplication setsToZones -noFlipMap
+runApplication splitMeshRegions -cellZones -overwrite
+
+# remove fluid fields from solid regions (important for post-processing)
+for i in cathode anode bipolar
+do
+   rm -f 0*/$i/{fi,kf}
+done
+
+# remove solid fields from fluid regions (important for post-processing)
+for i in electrolyte
+do
+   rm -f 0*/$i/{fi,ks}
+done
+
+for i in electrolyte cathode anode bipolar
+do
+   changeDictionary -region $i > log.changeDictionary.$i 2>&1
+done
+
+#-- Run on single processor
+runApplication multiRegionPotentialFoam
+
+#-- Postprocess
+wallCurrentFlux -region electrolyte -latestTime
+
+echo
+echo "creating files for paraview post-processing"
+echo
+for i in electrolyte cathode anode bipolar
+do
+   paraFoam -touch -region $i
+done
+
+# ----------------------------------------------------------------- end-of-file

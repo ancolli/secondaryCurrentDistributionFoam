@@ -1,0 +1,80 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+
+fi
+{
+    internalField   uniform 10;
+
+    boundaryField
+    {
+	
+        ".*"
+    	{
+            type            zeroGradient;
+    	}
+
+	top
+    	{
+	    type          fixedValue;
+            value	  uniform 10; 
+	    //type        fixedGradient;
+            //gradient 	uniform xx;// where xx is A/m2 of the current feeder
+	}
+
+	anode_to_electrolyte
+        {    
+            type	    regionCoupledSolidFluid;
+	    nbrField        fi;
+            Kappa           ks;
+	    side	    solid;
+ 	    j0		    (9.38e-2);
+	    b		    (0.0485);
+            E0		    (1.23);
+            value           $internalField;            
+        }
+
+        frontAndBack
+    	{
+            type            empty;
+    	}
+
+    }
+}
+
+ks
+    {
+        internalField   uniform 300;  // S/m
+
+        boundaryField
+        {    
+	    ".*"
+            {
+                type            zeroGradient;
+            }
+
+	    frontAndBack
+    	    {
+                type            empty;
+    	    }
+
+        }
+    }
+
+}
+// ************************************************************************* //

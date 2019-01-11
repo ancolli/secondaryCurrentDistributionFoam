@@ -1,0 +1,8 @@
+cellSet cathode new boxToCell (0 0.03 0)(0.005 0.1 0.01)
+cellSet anode new boxToCell (0.045 0.03 0)(0.05 0.1 0.01)
+cellSet bipolar new boxToCell (0.02 0.01 0)(0.03 0.1 0.01)
+cellSet electrolyte clear
+cellSet electrolyte add cellToCell cathode
+cellSet electrolyte add cellToCell anode
+cellSet electrolyte add cellToCell bipolar
+cellSet electrolyte invert

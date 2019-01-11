@@ -1,0 +1,3 @@
+wallCurrentFlux.C
+
+EXE = $(FOAM_APPBIN)/wallCurrentFlux

@@ -1,0 +1,150 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    // cathode
+    {
+        name    cathode;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {   
+            box (0 0.03 0)(0.005 0.1 0.01);
+        }
+    }
+    {
+        name    cathode;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set cathode;
+        }
+    }
+
+
+    // anode
+    {
+        name    anode;
+        type    cellSet;
+        action  new;//new;
+        source  boxToCell;
+        sourceInfo
+        {   
+            box (0.045 0.03 0)(0.05 0.1 0.01);
+        }
+    }
+    {
+        name    anode;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set anode;
+        }
+    }
+
+
+    // bipolar
+    {
+        name    bipolar;
+        type    cellSet;
+        action  new;//new;
+        source  boxToCell;
+        sourceInfo
+        {   
+            box (0.02 0.01 0)(0.03 0.1 0.01);
+        }
+    }
+    {
+        name    bipolar;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set bipolar;
+        }
+    }
+
+    
+// electrolyte
+
+    {
+        name    electrolyte;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0 0 0)(0.05 0.1 0.01);
+        }
+    }
+
+   {
+        name    electrolyte;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0 0.03 0)(0.005 0.1 0.01);
+        }
+    }
+
+    {
+        name    electrolyte;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.045 0.03 0)(0.05 0.1 0.01);
+        }
+    }
+    
+    {
+        name    electrolyte;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.02 0.01 0)(0.03 0.1 0.01);
+        }
+    }
+
+    {
+        name    electrolyte;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set electrolyte;
+        }
+}
+
+
+
+);
+
+// ************************************************************************* //
