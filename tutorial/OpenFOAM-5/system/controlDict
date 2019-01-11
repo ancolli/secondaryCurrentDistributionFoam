@@ -45,9 +45,9 @@ timePrecision   6;
 
 runTimeModifiable true;
 
-
 libs (
 	"libregionCoupledSolidFluid.so"
+        "libcompressibleTurbulenceModels.so"
      );
 
 // ************************************************************************* //
