@@ -1,0 +1,70 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1812                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+fi
+{
+    internalField   uniform 5;
+
+    boundaryField
+    {
+	".*"
+    	{
+            type            zeroGradient;
+    	}
+
+	bipolar_to_electrolyte
+        {    
+            type	    regionCoupledSolidFluid;
+	    side	    solid;
+	    nbrField        fi;
+	    value           $internalField;
+ 	    j0		    (9.38e-2 -2.09);
+	    b		    (0.0485 -0.0621347);
+            E0		    (1.23 0.0);
+            kappaMethod     lookup;
+            kappa           ks;
+            
+        }
+
+        frontAndBack
+    	{
+            type            empty;
+    	}
+
+    }
+}
+
+ks
+    {
+        internalField   uniform 300;  // S/m
+
+        boundaryField
+        {    
+	    ".*"
+            {
+                type            zeroGradient;
+            }
+
+	    frontAndBack
+    	    {
+                type            empty;
+    	    }
+
+        }
+    }
+
+
+// ************************************************************************* //

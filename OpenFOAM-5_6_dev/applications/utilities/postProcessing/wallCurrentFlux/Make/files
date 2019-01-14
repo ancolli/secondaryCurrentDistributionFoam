@@ -1,0 +1,3 @@
+wallCurrentFlux.C
+
+LIB = $(FOAM_USER_LIBBIN)/libwallCurrentFluxFunctionObject

@@ -1,3 +1,0 @@
-potentialWallFlux.C
-
-LIB = $(FOAM_USER_LIBBIN)/libpotentialWallFluxFunctionObject
